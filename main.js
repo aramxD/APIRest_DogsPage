@@ -1,10 +1,8 @@
-//const APIDOGS = 'https://api.waifu.pics/nsfw/waifu'
 console.log('empezamos')
 
 
-const APPKEY = 'ba54ce5a-864d-41bc-ba69-dff73e5b8d9a'
-const numberOfDogs = 2
-const APIDOGS = `https://api.thedogapi.com/v1/images/search?api_key=${APPKEY}&limit=${numberOfDogs}`
+
+
 
 // getDog()
 
@@ -24,12 +22,45 @@ const APIDOGS = `https://api.thedogapi.com/v1/images/search?api_key=${APPKEY}&li
 // }
 
 // METODO CON ASYC Y AWAIT\
+const APPKEY = 'ba54ce5a-864d-41bc-ba69-dff73e5b8d9a'
 
 
 
 
 
-async function getDogAwait() {
+async function getRandomDogAwait(APPKEY) {
+    numberOfDogs = document.getElementById('dogsRange').value
+    const API_RANDOM_DOGS = `https://api.thedogapi.com/v1/images/search?api_key=${APPKEY}&limit=${numberOfDogs}`
+
+    const res = await fetch(API_RANDOM_DOGS)
+    const data = await res.json()
+    console.log(data)
+        // const img = document.getElementById('dogs')
+        // img.src = data[0].url;
+
+    var perrosDisplay = document.getElementById('perrosDisplay')
+    data.forEach(element => {
+        console.log(element)
+        var card = document.createElement('div')
+        card.className = 'randomDogCard'
+        perrosDisplay.appendChild(card)
+
+        var img = document.createElement('img')
+        img.src = element.url
+        card.appendChild(img)
+
+        var button = document.createElement('button')
+        button.innerHTML = 'add to favorites'
+        button.className = 'botonPerro'
+        card.appendChild(button)
+
+
+    });
+}
+
+async function loadFavoritesDogAwait() {
+    numberOfDogs = document.getElementById('dogsRange').value
+
     const res = await fetch(APIDOGS)
     const data = await res.json()
     console.log(data)
@@ -48,4 +79,5 @@ async function getDogAwait() {
     });
 }
 
-getDogAwait()
+getRandomDogAwait(APPKEY)
+    //loadFavoritesDogAwait(APPKEY)
