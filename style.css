@@ -9,18 +9,19 @@ body {
     background: rgba(230, 230, 230, 0.467);
 }
 
-.perrosRandom {
+section {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 60px;
 }
 
-.perrosRandom h1 {
+section h1 {
     margin: 25px 0;
     font-size: 25px;
 }
 
-.perrosRandom p {
+section p {
     margin: 20px 0;
     font-size: 18px;
 }

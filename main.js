@@ -23,9 +23,7 @@ console.log('empezamos')
 
 // METODO CON ASYC Y AWAIT\
 const APPKEY = 'ba54ce5a-864d-41bc-ba69-dff73e5b8d9a'
-
-
-
+const spanError = document.getElementById('error')
 
 
 async function getRandomDogAwait(APPKEY) {
@@ -35,39 +33,45 @@ async function getRandomDogAwait(APPKEY) {
     const res = await fetch(API_RANDOM_DOGS)
     const data = await res.json()
     console.log(data)
-        // const img = document.getElementById('dogs')
-        // img.src = data[0].url;
 
-    var perrosDisplay = document.getElementById('perrosDisplay')
-    data.forEach(element => {
-        console.log(element)
-        var card = document.createElement('div')
-        card.className = 'randomDogCard'
-        perrosDisplay.appendChild(card)
+    if (res.status !== 200) {
+        const spanError = document.getElementById('errorFav')
+        spanError.innerHTML = 'Hubo un error: ' + res.status + data.message
+    } else {
 
-        var img = document.createElement('img')
-        img.src = element.url
-        card.appendChild(img)
+        var perrosDisplay = document.getElementById('perrosDisplay')
+        data.forEach(element => {
+            console.log(element)
+            var card = document.createElement('div')
+            card.className = 'randomDogCard'
+            perrosDisplay.appendChild(card)
 
-        var button = document.createElement('button')
-        button.innerHTML = 'add to favorites'
-        button.className = 'botonPerro'
-        card.appendChild(button)
+            var img = document.createElement('img')
+            img.src = element.url
+            card.appendChild(img)
+
+            var button = document.createElement('button')
+            button.innerHTML = 'add to favorites'
+            button.className = 'botonPerro'
+            card.appendChild(button)
 
 
-    });
+        })
+    };
 }
 
-async function loadFavoritesDogAwait() {
-    numberOfDogs = document.getElementById('dogsRange').value
-
-    const res = await fetch(APIDOGS)
+async function loadFavoritesDogAwait(APPKEY) {
+    const API_FAV_DOGS = `https://api.thedogapi.com/v1/images/favourites?api_key=${APPKEY}&limit=12`
+    const res = await fetch(API_FAV_DOGS)
     const data = await res.json()
     console.log(data)
-        // const img = document.getElementById('dogs')
-        // img.src = data[0].url;
 
-    var perrosDisplay = document.getElementById('perrosDisplay')
+    if (res.status !== 200) {
+        const spanError = document.getElementById('errorFav')
+        spanError.innerHTML = 'Hubo un error: ' + res.status + data.message
+    }
+
+    var perrosDisplay = document.getElementById('perrosFavoritos')
     data.forEach(element => {
         console.log(element)
 
@@ -80,4 +84,4 @@ async function loadFavoritesDogAwait() {
 }
 
 getRandomDogAwait(APPKEY)
-    //loadFavoritesDogAwait(APPKEY)
+loadFavoritesDogAwait(APPKEY)
