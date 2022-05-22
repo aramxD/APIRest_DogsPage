@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.perros {
+    display: flex;
+    flex-direction: row;
+}
+
+img {
+    width: 200px;
+    height: 200px;
+}
+
+#perrosDisplay {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#perrosDisplay img {
+    border-radius: 50%;
+    border: solid 3px black;
+    margin: 10px 0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
