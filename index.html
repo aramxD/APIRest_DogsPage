@@ -14,12 +14,15 @@
         <span id="error"></span>
         <h1>Random Dogs</h1>
         <p>Any time you click the bottom below this page will load 2 more puppys for you to see</p>
-        <div>
-            <input type="range" id="dogsRange" name="dogsRange" min="1" max="25" value="3">
-            <label for="dogsRange">How many dogs you want to see?</label>
-            <button id="botonPerro" class='botonPerro' onclick="getRandomDogAwait()">More Dogs :D</button>
+        <div class="inputs">
+            <div class="inputRange">
+                <input type="range" id="dogsRange" name="dogsRange" min="1" max="25" value="3">
+                <label for="dogsRange">How many dogs you want to see?</label>
+            </div>
 
+            <button id="botonPerro" class='botonPerro' onclick="getRandomDogAwait()">More Dogs :D</button>
         </div>
+
         <div id="perrosDisplay"></div>
 
 
