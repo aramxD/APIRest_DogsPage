@@ -13,7 +13,7 @@
     <section class="perrosRandom">
         <span id="error"></span>
         <h1>Random Dogs</h1>
-        <p>Any time you click the bottom below this page will load 2 more puppys for you to see</p>
+        <p>Any time you click the bottom below this page will load 2 or more puppys for you to see</p>
         <div class="inputs">
             <div class="inputRange">
                 <input type="range" id="dogsRange" name="dogsRange" min="1" max="25" value="3">
@@ -26,6 +26,15 @@
         <div id="perrosDisplay"></div>
 
 
+    </section>
+
+    <section id="uploadingPhotoDog">
+        <span id="errorUpload"></span>
+        <form id="uploadingForm">
+            <label for="photoDog"> Sube la foto de tu perro </label>
+            <input id="file" type="file" name="file">
+            <button type="button" onclick="uploadDogPhoto()">Subir foto 🐶</button>
+        </form>
     </section>
 
     <section class="perrosFavoritos">

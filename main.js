@@ -66,8 +66,13 @@ async function getRandomDogAwait(APPKEY) {
 }
 
 async function loadFavoritesDogAwait(APPKEY) {
-    const API_FAV_DOGS = `https://api.thedogapi.com/v1/favourites?api_key=${APPKEY}`
-    const res = await fetch(API_FAV_DOGS)
+    const API_FAV_DOGS = `https://api.thedogapi.com/v1/favourites`
+    const res = await fetch(API_FAV_DOGS, {
+        method: 'GET',
+        headers: {
+            'X-API-KEY': APPKEY
+        },
+    })
     const data = await res.json()
 
 
@@ -79,7 +84,7 @@ async function loadFavoritesDogAwait(APPKEY) {
     var perrosFavDisplay = document.getElementById('perrosFavourites')
     data.forEach(element => {
         if (element.image.url) {
-            console.log(element)
+            // console.log(element)
 
             // var img = document.createElement('img')
             // img.src = element.url
@@ -108,12 +113,13 @@ async function loadFavoritesDogAwait(APPKEY) {
 }
 
 async function saveFavoritesDogs(APPKEY, img_id) {
-    const API_FAV_DOGS = `https://api.thedogapi.com/v1/favourites?api_key=${APPKEY}&limit=12`
+    const API_FAV_DOGS = `https://api.thedogapi.com/v1/favourites`
 
     const res = await fetch(API_FAV_DOGS, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'X-API-KEY': APPKEY
         },
         body: JSON.stringify({ image_id: `${img_id}` })
     })
@@ -130,10 +136,13 @@ async function saveFavoritesDogs(APPKEY, img_id) {
 }
 
 async function deleteFavoritesDogs(APPKEY, favourite_id) {
-    const API_FAV_DOGS = `https://api.thedogapi.com/v1/favourites/${favourite_id}?api_key=${APPKEY}`
+    const API_FAV_DOGS = `https://api.thedogapi.com/v1/favourites/${favourite_id}`
 
     const res = await fetch(API_FAV_DOGS, {
         method: 'DELETE',
+        headers: {
+            'X-API-KEY': APPKEY
+        },
     });
     const data = await res.json();
 
@@ -144,6 +153,44 @@ async function deleteFavoritesDogs(APPKEY, favourite_id) {
         console.log('imagen borrada')
     }
 }
+
+async function uploadDogPhoto() {
+    const API_UPLOAD = 'https://api.thedogapi.com/v1/images/upload'
+    const form = document.getElementById('uploadingForm')
+    const formData = new FormData(form)
+
+    console.log(formData.get('file'))
+
+    const response = await fetch(API_UPLOAD, {
+        method: 'POST',
+        headers: {
+            // 'Content-Type': 'multipart/formdata',
+            'X-API-KEY': APPKEY,
+
+        },
+        body: formData,
+    })
+
+    const data = await response.json()
+
+    if (response.status !== 201) {
+        const spanError = document.getElementById('errorUpload')
+        spanError.innerHTML = `Hubo un error al subir michi: ${response.status} ${data.message}`
+    } else {
+        console.log("Foto de michi cargada :)");
+        console.log({ data });
+        console.log(data.url);
+        saveFavouriteMichi(data.id)
+    }
+
+
+
+
+
+    console.log(response)
+}
+
+
 
 getRandomDogAwait(APPKEY)
 loadFavoritesDogAwait(APPKEY)
